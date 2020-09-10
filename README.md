@@ -44,7 +44,11 @@
    2. 如果未显示 `Login Successful!` 则说明账号密码错误，需要用户返回第5步修改统一身份认证的账户和密码。
    3. 如果未显示 `Report SUCCESSFUL!` 则说明 `data.json` 中的数据有误，请自行根据 [data.json 数据获取方法](#data.json 数据获取方法) 一节修正 data.json 中的内容。
 
-7. 将修改好的代码push至master分支。如果不需要修改 `data.json`，请在 `README.md` 里添加一个空格并push，否则不会触发之后的步骤。**请在自己的仓库中修改，不要pull request到本仓库！**
+7. 将修改好的代码push至master分支。如果不需要修改 `data.json` 和 `report.yml`，请在 `README.md` 里添加一个空格并push，否则不会触发之后的步骤。**请在自己的仓库中修改，不要pull request到本仓库！**
+
+   1. 点击图中红圈内的铅笔图标![edit](README.assets/edit-1599742597991.png)
+   2. 在下面的文本框中的空行添加一个空格![edit2](README.assets/edit2.png)
+   3. 将页面滚动到最下方，点击绿色的 Commit changes 按钮进行提交
 
 8. 在Github个人设置页面的Notifications下可以设置Github Actions的通知，建议打开Email通知，并勾选"Send notifications for failed workflows only"。
 
