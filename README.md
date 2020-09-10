@@ -1,10 +1,10 @@
 # 中国滑稽大学(University of Ridiculous of China)健康打卡平台自动打卡脚本
 
-![Auto-report action](https://github.com/Violin9906/USTC-ncov-AutoReport/workflows/Auto-report%20action/badge.svg?branch=master&event=schedule)
+![Auto-report action](https://github.com/TowardtheStars/URC-ncov-AutoReport/workflows/Auto-report%20action/badge.svg?branch=master&event=schedule)
 ![School](https://img.shields.io/badge/School-URC-blue.svg)
 ![Language](https://img.shields.io/badge/language-Python3-yellow.svg)
-![GitHub stars](https://img.shields.io/github/stars/Violin9906/USTC-ncov-AutoReport)
-![GitHub forks](https://img.shields.io/github/forks/Violin9906/USTC-ncov-AutoReport)
+![GitHub stars](https://img.shields.io/github/stars/TowardtheStars/URC-ncov-AutoReport)
+![GitHub forks](https://img.shields.io/github/forks/TowardtheStars/URC-ncov-AutoReport)
 
 ## 说明
 
@@ -12,9 +12,7 @@
 
 ## 更新记录
 
-- 20200831：增强稳定性
-- 20200827：增加打卡失败重试功能，增加License
-- 20200826：为配合学校最新规定，切换至Github Actions实现一天三次打卡
+- 20200910：更新使用方法
 
 ## 使用方法
 
@@ -22,19 +20,31 @@
 
 1. 将本代码仓库fork到自己的github。
 
-2. 根据自己的实际情况修改`data.json`的数据，参看下文。这里给出了东、西、南、北、中五个校区正常在校的模板，默认的`data.json`是西区正常在校。**开发者不保证这些模板的正确性。**
+   1. ![fork](README.assets/fork.png)
+   2. 点击 fork 按钮后，github 需要一点时间来完成 fork 操作。
+   3. fork 之后，检查上图中左上角的用户名是否已变为自己的用户名（即当前的 repo 是否为自己 fork 出来的），如果是，则 fork 成功。
 
-3. 将修改好的代码push至master分支。如果不需要修改 `data.json`，请在 `README.md` 里添加一个空格并push，否则不会触发之后的步骤。**请在自己的仓库中修改，不要pull request到本仓库！**
+2. 默认的`data.json`是东区正常在校。也可以根据自己的实际情况修改`data.json`的数据，参看下文。
 
-4. 点击Actions选项卡，点击`I understand my workflows, go ahead and enable them`.
+3. 点击Actions选项卡，点击 `I understand my workflows, go ahead and enable them`.
 
-5. 点击Settings选项卡，点击左侧Secrets，点击New secret，创建名为`STUID`，值为自己学号的secret。用同样方法，创建名为`PASSWORD`，值为自己中国滑稽大学统一身份认证密码的secret。这两个值不会被公开。
+4. 点击 Settings 选项卡，点击左侧 Secrets，点击 New secret，创建名为 `STUID`，值为自己学号的 secret。用同样方法，创建名为 `PASSWORD`，值为自己中国滑稽大学统一身份认证密码的 secret。这两个值不会被公开。
 
    ![secrets](imgs/image-20200826215037042.png)
 
-6. 默认的打卡时间是每天的早上7:30、中午12:30和晚上19:30，可能会有数分钟的浮动。如需选择其它时间，可以修改`.github/workflows/report.yml`中的`cron`，详细说明参见[安排的事件](https://docs.github.com/cn/actions/reference/events-that-trigger-workflows#scheduled-events)，请注意这里使用的是**国际标准时间UTC**，北京时间的数值比它大8个小时。建议修改默认时间，避开打卡高峰期以提高成功率。
+5. 默认的打卡时间是每天的中午12:28，可能会有数分钟的浮动。如需选择其它时间，可以修改`.github/workflows/report.yml`中的`cron`。请注意这里使用的是**国际标准时间UTC**，北京时间的数值比它大8个小时。建议修改默认时间，避开打卡高峰期以提高成功率。
 
-7. 在Actions选项卡可以确认打卡情况。如果打卡失败（可能是临时网络问题等原因），脚本会自动重试，五次尝试后如果依然失败，将返回非零值提示构建失败。
+   ![image-20200910202430337](imgs/cron.png)
+
+   这里 cron 的第一个数字为分钟数，第二个数字为小时（24小时制，零时区）。
+
+6. 在Actions选项卡可以确认打卡情况。如果打卡失败（可能是临时网络问题等原因），脚本会自动重试，五次尝试后如果依然失败，将返回非零值提示构建失败。
+
+   1. 如果成功打卡，Actions 的日志会有如下显示：![success](imgs/success.png)
+   2. 如果未显示 `Login Successful!` 则说明账号密码错误，需要用户返回第5步修改统一身份认证的账户和密码。
+   3. 如果未显示 `Report SUCCESSFUL!` 则说明 `data.json` 中的数据有误，请自行根据 [data.json 数据获取方法](#data.json 数据获取方法) 一节修正 data.json 中的内容。
+
+7. 将修改好的代码push至master分支。如果不需要修改 `data.json`，请在 `README.md` 里添加一个空格并push，否则不会触发之后的步骤。**请在自己的仓库中修改，不要pull request到本仓库！**
 
 8. 在Github个人设置页面的Notifications下可以设置Github Actions的通知，建议打开Email通知，并勾选"Send notifications for failed workflows only"。
 
